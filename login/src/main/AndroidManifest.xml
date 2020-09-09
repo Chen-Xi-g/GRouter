@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.minlukj.login">
+
+    <application>
+        <activity android:name=".LoginMainActivity" />
+    </application>
+</manifest>

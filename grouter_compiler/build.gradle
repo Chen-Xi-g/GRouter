@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    kapt 'com.google.auto.service:auto-service:1.0-rc7'
+    compileOnly 'com.google.auto.service:auto-service:1.0-rc7'
+
+    implementation "com.squareup:kotlinpoet:1.6.0"
+
+    //引入注解lib
+    implementation project(':grouter_annotation')
+    implementation project(':grouter_api')
+    // 添加JavaPoet和自动化服务
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

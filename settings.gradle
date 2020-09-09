@@ -1,0 +1,8 @@
+include ':grouter_api'
+include ':grouter_annotation'
+include ':grouter_compiler'
+include ':common'
+include ':login'
+include ':order'
+include ':app'
+rootProject.name = "Module_Study"

@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def app_android = this.getRootProject().ext.app_android
+
+def app_id = this.getRootProject().ext.app_id
+
+def app_impl = this.getRootProject().ext.app_impl
+
+def app_url = this.getRootProject().ext.app_url
+
+android {
+  compileSdkVersion app_android.compileSdkVersion
+
+  defaultConfig {
+    applicationId app_id.app
+    minSdkVersion app_android.minSdkVersion
+    targetSdkVersion app_android.targetSdkVersion
+    versionCode app_android.versionCode
+    versionName app_android.versionName
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    // 这个方法接收三个非空的参数，第一个：确定值的类型，第二个：指定key的名字，第三个：传值（必须是String）
+    // 为什么需要定义这个？因为src代码中有可能需要用到跨模块交互，如果是组件化模块显然不行
+    // 切记：不能在android根节点，只能在defaultConfig或buildTypes节点下
+    buildConfigField("boolean", "singleModule", String.valueOf(singleModule))
+  }
+
+  buildTypes {
+    debug{
+      buildConfigField("String","SERVER_URL","\"${app_url.debug}\"")
+    }
+    release {
+      buildConfigField("String","SERVER_URL","\"${app_url.release}\"")
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  //源集 配置路径
+  sourceSets {
+    main {
+      if (singleModule) {
+        // 如果是组件化模式，需要单独运行时
+        manifest.srcFile 'src/main/AndroidManifest.xml'
+        java.srcDirs = ['src/main/java']
+        res.srcDirs = ['src/main/res']
+        resources.srcDirs = ['src/main/resources']
+        aidl.srcDirs = ['src/main/aidl']
+        assets.srcDirs = ['src/main/assets']
+      } else {
+        // 集成化模式，整个项目打包
+        manifest.srcFile 'src/main/AndroidManifest.xml'
+      }
+    }
+  }
+}
+
+kapt{
+  arguments{
+    arg("moduleName", project.name)
+    arg("packageNameForAPT", this.rootProject.ext.packageNameForAPT)
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: "libs", include: ["*.jar"])
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'androidx.appcompat:appcompat:1.2.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+  app_impl.each{
+    k,v -> implementation v
+  }
+  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+//  implementation project(':common')
+  kapt project(':grouter_compiler')
+  implementation project(':grouter_annotation')
+  implementation project(':grouter_api')
+
+  if (!singleModule){
+    implementation project(':login')
+    implementation project(':order')
+  }
+}

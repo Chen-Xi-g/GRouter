@@ -1,0 +1,41 @@
+
+xinPuDa/src/main/assets/test.json
+test.json
+.idea/misc.xml
+
+### JetBrains template
+.idea/workspace.xml
+.idea/vcs.xml
+guoxinerp.zip
+
+# Gradle:
+.idea/gradle.xml
+.idea/libraries
+*.apk
+# Gradle files
+.gradle/
+build/
+# Local configuration file (sdk path, etc)
+local.properties
+gradle.properties
+*.log
+*.iml
+*.md
+dump.rdb
+
+*.txt
+import-summary.txt
+
+
+
+
+.idea/*
+APK/
+logs/
+test/
+.idea/caches/
+.idea/codeStyles/
+.idea/assetWizardSettings.xml
+*.hprof
+
+

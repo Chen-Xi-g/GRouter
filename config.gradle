@@ -1,0 +1,30 @@
+ext{
+    //true / false(测试 / 正式)(独立运行 / library)
+    singleModule = false
+
+    //定义一个存放所有APT类文件的包名
+    packageNameForAPT = "com.minlukj.module_study"
+
+    app_android = [
+            compileSdkVersion:29,
+            minSdkVersion:16,
+            targetSdkVersion:29,
+            versionCode:1,
+            versionName:"1.0"
+    ]
+    app_impl = [
+            'ktx': 'androidx.core:core-ktx:1.3.1',
+            'appcompat': 'androidx.appcompat:appcompat:1.2.0',
+            'constraintlayout':'androidx.constraintlayout:constraintlayout:2.0.1',
+            'junit':'junit:junit:4.12',
+    ]
+    app_id = [
+            'app':'com.minlukj.module_study',
+            'order':'com.minlukj.order',
+            'login':'com.minlukj.login'
+    ]
+    app_url = [
+            'debug':'https://dev.minlukj.com',
+            'release':'https://www.minlukj.com'
+    ]
+}
