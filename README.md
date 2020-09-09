@@ -1,6 +1,8 @@
 # 框架结构
 
 [toc]
+## 项目配置
+[kapt+kotlinPoet配置](https://github.com/Chen-Xi-g/Module_Study/blob/master/kotlinPoetConfig.md)
 
 ## app
 
@@ -20,7 +22,7 @@
 
 > 这里存放着路由框架的注解和路由框架的实体类
 
-**package: com.minlukj.annotation **
+**package: com.minlukj.annotation**
 
 **Annotation: @GRouter：** 这是一个注解类，注意使用该注解注册路由表。
 
