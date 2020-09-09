@@ -20,7 +20,6 @@ local.properties
 gradle.properties
 *.log
 *.iml
-*.md
 dump.rdb
 
 *.txt
