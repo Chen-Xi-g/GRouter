@@ -13,7 +13,6 @@ dependencies {
 
     //引入注解lib
     implementation project(':grouter_annotation')
-    implementation project(':grouter_api')
     // 添加JavaPoet和自动化服务
 }
 
