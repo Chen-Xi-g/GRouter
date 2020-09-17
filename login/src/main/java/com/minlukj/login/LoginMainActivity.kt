@@ -11,7 +11,7 @@ class LoginMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity_main)
-        tv_bundle_tag.text = savedInstanceState?.getString("tag")
+        tv_bundle_tag.text = intent.getStringExtra("tag")
         home_btn.setOnClickListener {
             GRouterManager.instance
                 .build("/app/MainActivity")
