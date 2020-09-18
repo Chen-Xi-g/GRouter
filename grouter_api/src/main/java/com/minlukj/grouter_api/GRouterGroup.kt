@@ -1,4 +1,4 @@
-package com.minlukj.groute_api
+package com.minlukj.grouter_api
 
 /**
  *

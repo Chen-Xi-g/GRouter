@@ -12,5 +12,5 @@ package com.minlukj.annotation
 // 哪里可以使用该注解
 @Target(AnnotationTarget.CLASS)
 // 注解在编译时使用
-@Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.SOURCE)
 annotation class GRouter constructor(val group: String = "", val path: String)

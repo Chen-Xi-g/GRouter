@@ -22,7 +22,7 @@ class GRouterConfig {
         val ACTIVITY_PACKAGE = "android.app.Activity"
 
         //GRouter api 包名
-        val GROUTER_API_PACKAGE = "com.minlukj.groute_api"
+        val GROUTER_API_PACKAGE = "com.minlukj.grouter_api"
 
         //GRouter api 的 GRouterGroup 文件
         val GROUTER_API_GROUP = "${GROUTER_API_PACKAGE}.GRouterGroup"
@@ -30,11 +30,19 @@ class GRouterConfig {
         //GRouter api 的 GRouterPath 文件
         val GROUTER_API_PATH = "${GROUTER_API_PACKAGE}.GRouterPath"
 
+        val GROUTER_API_PARAMETER = "${GROUTER_API_PACKAGE}.GParameterGet"
+
         //路由组中的 Path 方法名
         val PATH_METHOD_NAME = "getPathMap"
 
         //路由组中的 Group 方法名
         val GROUP_METHOD_NAME = "getGroupMap"
+
+        //获取参数的方法名
+        val PARAMETER_METHOD_NAME = "getParameter"
+
+        // String 的路径
+        val STRING = "java.lang.String"
 
         //路由组中的 Path 变量名
         val PATH_VAR = "pathMap"
@@ -42,10 +50,19 @@ class GRouterConfig {
         //路由组中的 Group 变量名
         val GROUP_VAR = "groupMap"
 
+        //获取参数的变量名
+        val PARAMETER_VAR = "targetParameter"
+
         //路由组 Path 生成的名字规则
         val PATH_FILE_NAME = "GRouter$\$Path$\$"
 
         //路由组 Group 生成的名字规则
         val GROUP_FILE_NAME = "GRouter$\$Group$\$"
+
+        //Parameter 注解的包名
+        const val PARAMETER_PAKAGE = "com.minlukj.annotation.GParameter"
+
+        //自动生成类名的后缀
+        val PARAMETER_SUFFIX_NAME = "$\$Parameter"
     }
 }
