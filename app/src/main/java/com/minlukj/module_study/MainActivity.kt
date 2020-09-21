@@ -1,6 +1,8 @@
 package com.minlukj.module_study
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.minlukj.annotation.GRouter
 import com.minlukj.grouter_api.GRouterManager
@@ -23,8 +25,16 @@ class MainActivity : AppCompatActivity() {
             GRouterManager.instance
                 .build("/login/LoginMainActivity")
                 .withString("tag", "app/MainActivity")
-                .navigation(this)
+                .navigation(this, 789)
 //            startActivity(Intent(this, LoginMainActivity::class.java))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            789 ->
+                Log.d("onActivityResult:", resultCode.toString())
         }
     }
 }

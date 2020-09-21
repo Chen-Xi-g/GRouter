@@ -1,9 +1,13 @@
 package com.minlukj.grouter_api
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.LruCache
+import androidx.core.app.ActivityCompat
 import com.minlukj.annotation.bean.TypeEnum
 import com.minlukj.groute_api.GBundleManager
 
@@ -27,6 +31,8 @@ import com.minlukj.groute_api.GBundleManager
  *      8.startActivity（new Intent(this, Login_MainActivity.class)）
  */
 class GRouterManager private constructor() {
+
+    private val handler = Handler(Looper.getMainLooper())
 
     /**
      * 单例
@@ -83,7 +89,7 @@ class GRouterManager private constructor() {
      * @param context 传入context完成跳转
      * @param bundle 传入bundle完成参数传递
      */
-    fun navigation(context: Context, bundle: GBundleManager): Any? {
+    fun navigation(context: Context, bundle: GBundleManager, request: Int = -1): Any? {
         //拼接 Group 绝对路径 用来查找 KAPT 在指定 Module 生成的文件
         val groupClassName = "${context.packageName}.$FILE_GROUP_NAME$group"
         Log.d("GRouter>>>>", "navigation：groupClassName = $groupClassName")
@@ -127,11 +133,51 @@ class GRouterManager private constructor() {
                 val intent = Intent(context, gRouterBean.clazz)
                 //携带参数
                 intent.putExtras(bundle.bundle)
-                context.startActivity(intent, bundle.bundle)
+                runInMainThread(Runnable {
+                    startActivity(context, intent, bundle, request)
+                })
             }
         }
 
         return null
+    }
+
+    /**
+     * 跳转Activity
+     */
+    private fun startActivity(
+        currentContext: Context,
+        intent: Intent,
+        bundle: GBundleManager,
+        request: Int = -1
+    ) {
+        if (request >= 0) {
+            if (currentContext is Activity) {
+                ActivityCompat.startActivityForResult(
+                    currentContext,
+                    intent,
+                    request,
+                    bundle.bundle
+                )
+            } else {
+                throw RuntimeException("必须使用[navigation(activity，…)]来支持[startActivityForResult]")
+            }
+        } else {
+            ActivityCompat.startActivity(currentContext, intent, bundle.bundle)
+        }
+    }
+
+    /**
+     * 确保在主线程中执行。
+     *
+     * @param runnable code
+     */
+    private fun runInMainThread(runnable: Runnable) {
+        if (Looper.getMainLooper().thread !== Thread.currentThread()) {
+            handler.post(runnable)
+        } else {
+            runnable.run()
+        }
     }
 
 }

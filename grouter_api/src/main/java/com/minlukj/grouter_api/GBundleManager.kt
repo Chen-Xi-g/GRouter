@@ -2,7 +2,9 @@ package com.minlukj.groute_api
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import com.minlukj.grouter_api.GRouterManager
+import java.io.Serializable
 
 /**
  *
@@ -32,13 +34,28 @@ class GBundleManager {
         return this
     }
 
+    fun withLong(key: String, value: Long): GBundleManager {
+        bundle.putLong(key, value)
+        return this
+    }
+
+    fun withSerializable(key: String, value: Serializable): GBundleManager {
+        bundle.putSerializable(key, value)
+        return this
+    }
+
+    fun withParcelable(key: String, value: Parcelable): GBundleManager {
+        bundle.putParcelable(key, value)
+        return this
+    }
+
     fun withBundle(bundle: Bundle): GBundleManager {
         this.bundle = bundle
         return this
     }
 
     //页面跳转
-    fun navigation(context: Context): Any? {
-        return GRouterManager.instance.navigation(context, this)
+    fun navigation(context: Context, request: Int = -1): Any? {
+        return GRouterManager.instance.navigation(context, this, request)
     }
 }

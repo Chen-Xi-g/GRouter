@@ -19,50 +19,50 @@ class GRouterConfig {
         const val APT_PACKAGE = "packageNameForAPT"//APT 存放的包名
 
         //Activity的类名
-        val ACTIVITY_PACKAGE = "android.app.Activity"
+        const val ACTIVITY_PACKAGE = "android.app.Activity"
 
         //GRouter api 包名
-        val GROUTER_API_PACKAGE = "com.minlukj.grouter_api"
+        const val GROUTER_API_PACKAGE = "com.minlukj.grouter_api"
 
         //GRouter api 的 GRouterGroup 文件
-        val GROUTER_API_GROUP = "${GROUTER_API_PACKAGE}.GRouterGroup"
+        const val GROUTER_API_GROUP = "${GROUTER_API_PACKAGE}.GRouterGroup"
 
         //GRouter api 的 GRouterPath 文件
-        val GROUTER_API_PATH = "${GROUTER_API_PACKAGE}.GRouterPath"
+        const val GROUTER_API_PATH = "${GROUTER_API_PACKAGE}.GRouterPath"
 
-        val GROUTER_API_PARAMETER = "${GROUTER_API_PACKAGE}.GParameterGet"
+        const val GROUTER_API_PARAMETER_GET = "${GROUTER_API_PACKAGE}.GParameterGet"
 
         //路由组中的 Path 方法名
-        val PATH_METHOD_NAME = "getPathMap"
+        const val PATH_METHOD_NAME = "getPathMap"
 
         //路由组中的 Group 方法名
-        val GROUP_METHOD_NAME = "getGroupMap"
+        const val GROUP_METHOD_NAME = "getGroupMap"
 
         //获取参数的方法名
-        val PARAMETER_METHOD_NAME = "getParameter"
+        const val PARAMETER_METHOD_NAME = "getParameter"
 
         // String 的路径
-        val STRING = "java.lang.String"
+        const val STRING = "java.lang.String"
 
         //路由组中的 Path 变量名
-        val PATH_VAR = "pathMap"
+        const val PATH_VAR = "pathMap"
 
         //路由组中的 Group 变量名
-        val GROUP_VAR = "groupMap"
+        const val GROUP_VAR = "groupMap"
 
         //获取参数的变量名
-        val PARAMETER_VAR = "targetParameter"
+        const val PARAMETER_VAR = "targetParameter"
 
         //路由组 Path 生成的名字规则
-        val PATH_FILE_NAME = "GRouter$\$Path$\$"
+        const val PATH_FILE_NAME = "GRouter$\$Path$\$"
 
         //路由组 Group 生成的名字规则
-        val GROUP_FILE_NAME = "GRouter$\$Group$\$"
+        const val GROUP_FILE_NAME = "GRouter$\$Group$\$"
 
         //Parameter 注解的包名
         const val PARAMETER_PAKAGE = "com.minlukj.annotation.GParameter"
 
         //自动生成类名的后缀
-        val PARAMETER_SUFFIX_NAME = "$\$Parameter"
+        const val PARAMETER_SUFFIX_NAME = "$\$Parameter"
     }
 }

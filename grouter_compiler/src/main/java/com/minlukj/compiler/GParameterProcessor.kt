@@ -95,7 +95,8 @@ class GParameterProcessor : AbstractProcessor() {
 
             //获取Activity 和 Parameter 类型
             val activityElement = elementTool.getTypeElement(GRouterConfig.ACTIVITY_PACKAGE)
-            val parameterElement = elementTool.getTypeElement(GRouterConfig.GROUTER_API_PARAMETER)
+            val parameterElement =
+                elementTool.getTypeElement(GRouterConfig.GROUTER_API_PARAMETER_GET)
 
             /**
              * 代码模板

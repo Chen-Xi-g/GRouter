@@ -18,6 +18,10 @@ class LoginMainActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity_main)
         GParameterManager.instance.loadParameter(this)
         tv_bundle_tag.text = tag
+        tv_bundle_tag.setOnClickListener {
+            setResult(987)
+            finish()
+        }
         home_btn.setOnClickListener {
             GRouterManager.instance
                 .build("/app/MainActivity")
