@@ -1,6 +1,6 @@
 package com.minlukj.grouter_api
 
-import com.minlukj.annotation.bean.GRouterBean
+import com.minlukj.annotation.bean.GRouterMeta
 
 /**
  *
@@ -20,5 +20,5 @@ interface GRouterPath {
      *          --> .......
      * 所以需要设计一个Map来存储这些信息
      */
-    fun getPathMap(): Map<String, GRouterBean>
+    fun getPathMap(): Map<String, GRouterMeta>
 }

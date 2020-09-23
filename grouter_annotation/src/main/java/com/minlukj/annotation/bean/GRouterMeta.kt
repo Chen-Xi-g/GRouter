@@ -9,7 +9,7 @@ import javax.lang.model.element.Element
  * @param path Activity的路由路径 "/app/MainActivity" or "/login/Login_MainActivity"
  * @param group 路由组名称 "app" or "order" or "login"
  */
-data class GRouterBean(
+data class GRouterMeta(
     var typeEnum: TypeEnum?,
     var clazz: Class<*>?,
     var path: String?,
@@ -34,8 +34,8 @@ data class GRouterBean(
 
     companion object {
         //提供对外暴露的方法，初始化路由框架的实体类
-        fun create(typeEnum: TypeEnum, clazz: Class<*>, path: String, group: String): GRouterBean {
-            return GRouterBean(typeEnum, clazz, path, group)
+        fun create(typeEnum: TypeEnum, clazz: Class<*>, path: String, group: String): GRouterMeta {
+            return GRouterMeta(typeEnum, clazz, path, group)
         }
     }
 
@@ -70,10 +70,10 @@ data class GRouterBean(
             return this
         }
 
-        fun build(): GRouterBean {
+        fun build(): GRouterMeta {
             if (path?.isEmpty()!!)
                 throw RuntimeException("必填项path为空")
-            return GRouterBean(typeEnum, clazz, path, group, element)
+            return GRouterMeta(typeEnum, clazz, path, group, element)
         }
     }
 

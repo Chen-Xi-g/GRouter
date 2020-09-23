@@ -2,7 +2,7 @@ package com.minlukj.compiler
 
 import com.google.auto.service.AutoService
 import com.minlukj.annotation.GRouter
-import com.minlukj.annotation.bean.GRouterBean
+import com.minlukj.annotation.bean.GRouterMeta
 import com.minlukj.annotation.bean.TypeEnum
 import com.minlukj.compiler.util.GRouterConfig
 import com.squareup.kotlinpoet.*
@@ -47,7 +47,7 @@ class GRouterProcessor : AbstractProcessor() {
     private lateinit var aptPackage: String // （模块传递过来的） 包名
 
     // 仓库一  PATH
-    private val mAllPathMap = mutableMapOf<String, ArrayList<GRouterBean>>()
+    private val mAllPathMap = mutableMapOf<String, ArrayList<GRouterMeta>>()
 
     // 仓库二 GROUP
     private val mAllGroupMap = mutableMapOf<String, String>()
@@ -120,7 +120,7 @@ class GRouterProcessor : AbstractProcessor() {
             val gRouter = it.getAnnotation(GRouter::class.java)
 
 //            初始化GRouter实体类
-            val routerBean = GRouterBean.Builder()
+            val routerBean = GRouterMeta.Builder()
                 .addGroup(gRouter.group)
                 .addPath(gRouter.path)
                 .addElement(it)
@@ -172,9 +172,9 @@ class GRouterProcessor : AbstractProcessor() {
          * KotlinPoet 自动生成Path代码的模板
          *
          * class `GRouter$$Path$$app` : GRouterPath {
-         *      override fun getPathMap(): Map<String, GRouterBean> {
-         *          val pathMap = mutableMapOf<String,GRouterBean>()
-         *          pathMap["/app/MainActivity"] = GRouterBean.create(TypeEnum.ACTIVITY,MainActivity::class.java,"/app/MainActivity","app")
+         *      override fun getPathMap(): Map<String, GRouterMeta> {
+         *          val pathMap = mutableMapOf<String,GRouterMeta>()
+         *          pathMap["/app/MainActivity"] = GRouterMeta.create(TypeEnum.ACTIVITY,MainActivity::class.java,"/app/MainActivity","app")
          *          return pathMap
          *      }
          * }
@@ -188,7 +188,7 @@ class GRouterProcessor : AbstractProcessor() {
         //设置Map泛型的TypeName
         val map = ClassName("kotlin.collections", "Map")
         val string = ClassName("kotlin", "String")
-        val mapOfGRouterBean = map.parameterizedBy(string, GRouterBean::class.asTypeName())
+        val mapOfGRouterMeta = map.parameterizedBy(string, GRouterMeta::class.asTypeName())
 
         mAllPathMap.forEach {
             //初始化map的函数
@@ -196,19 +196,19 @@ class GRouterProcessor : AbstractProcessor() {
             // 初始化方法的返回值
             val statement = FunSpec.builder(GRouterConfig.PATH_METHOD_NAME)
                 .addModifiers(KModifier.OVERRIDE)
-                .returns(mapOfGRouterBean)
+                .returns(mapOfGRouterMeta)
                 .addStatement(
                     "val ${GRouterConfig.PATH_VAR} = %M<%T,%T>()",
                     MemberName("kotlin.collections", "mutableMapOf"),
                     String::class.asClassName(),
-                    GRouterBean::class.asTypeName()
+                    GRouterMeta::class.asTypeName()
                 )
             it.value.forEach { bean ->
-//                pathMap["/app/MainActivity"] = GRouterBean.create(TypeEnum.ACTIVITY,MainActivity::class.java,"/app/MainActivity","app")
+//                pathMap["/app/MainActivity"] = GRouterMeta.create(TypeEnum.ACTIVITY,MainActivity::class.java,"/app/MainActivity","app")
                 statement.addStatement(
                     "${GRouterConfig.PATH_VAR}[%S] = %T.create(%T.%L, %T::class.java, %S, %S)",
                     bean.path!!, //    s
-                    GRouterBean::class,   // T
+                    GRouterMeta::class,   // T
                     TypeEnum::class,
                     bean.typeEnum!!,
                     bean.element as TypeElement,
@@ -306,7 +306,7 @@ class GRouterProcessor : AbstractProcessor() {
         file.writeTo(filer)
     }
 
-    private fun checkRouterPath(bean: GRouterBean): Boolean {
+    private fun checkRouterPath(bean: GRouterMeta): Boolean {
         val group = bean.group
         val path = bean.path
 
